@@ -74,3 +74,12 @@ body { background: var(--paper); color: var(--ink); }
 /* ---- Underline link ---- */
 .link-accent { color: var(--accent); text-decoration: none; border-bottom: 1.5px solid transparent; transition: border-color .15s ease; }
 .link-accent:hover { border-color: var(--accent); }
+
+/* ---- CV upload form ---- */
+.cv-upload .card { padding: 1.25rem; border-radius: 1rem; background: #fff; box-shadow: 0 8px 20px rgba(16,24,40,0.06); border: 1px solid rgba(24,24,27,0.04); }
+.cv-upload .file-input { display: flex; gap: .5rem; align-items: center; }
+.cv-upload .file-input input[type=file] { background: transparent; }
+.cv-list { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 1rem; }
+.cv-card { padding: .75rem; border-radius: .75rem; background: linear-gradient(180deg,#ffffff,#fbfbfb); border: 1px solid rgba(24,24,27,0.04); box-shadow: 0 8px 18px rgba(16,24,40,0.04); }
+.cv-card .meta { font-size: .85rem; color: #475569; }
+.cv-card .actions { margin-top: .5rem; display:flex; gap:.5rem; }
