@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/AIClient.php';
+
 /**
  * SkillSync AI — Agent Reviewer & Auditor
  *
