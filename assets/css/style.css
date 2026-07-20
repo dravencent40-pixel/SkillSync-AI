@@ -83,3 +83,16 @@ body { background: var(--paper); color: var(--ink); }
 .cv-card { padding: .75rem; border-radius: .75rem; background: linear-gradient(180deg,#ffffff,#fbfbfb); border: 1px solid rgba(24,24,27,0.04); box-shadow: 0 8px 18px rgba(16,24,40,0.04); }
 .cv-card .meta { font-size: .85rem; color: #475569; }
 .cv-card .actions { margin-top: .5rem; display:flex; gap:.5rem; }
+
+/* ---- Upload / Preview polished UI ---- */
+.card { padding: 1.25rem; border-radius: 1rem; background: linear-gradient(180deg,#ffffff,#fbfdff); border: 1px solid rgba(24,24,27,0.04); }
+.cv-upload input[type=file] { padding: .5rem 0; }
+.btn-tactile { background: var(--accent); color: #fff; border-radius: .75rem; padding: .6rem 1rem; display: inline-flex; align-items:center; gap:.5rem; }
+.btn-tactile.bg-zinc-900 { background: #111827; }
+.preview-frame { height: 640px; }
+.cv-preview .surface { background: linear-gradient(180deg,#ffffff,#f8fbff); border: 1px solid rgba(16,24,40,0.04); }
+
+/* responsive */
+@media (max-width: 640px) {
+    .preview-frame { height: 420px; }
+}

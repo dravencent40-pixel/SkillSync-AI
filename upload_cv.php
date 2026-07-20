@@ -21,13 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $allowed = ['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mime = finfo_file($finfo, $file['tmp_name']);
-    finfo_close($finfo);
+    // Use fileinfo if available, otherwise fall back to the client-provided type
+    if (function_exists('finfo_open')) {
+      $finfo = finfo_open(FILEINFO_MIME_TYPE);
+      $mime = finfo_file($finfo, $file['tmp_name']);
+      finfo_close($finfo);
+    } else {
+      $mime = $file['type'] ?? null;
+    }
 
     if (!in_array($mime, $allowed)) {
-        flash('error', 'Hanya file PDF / DOC / DOCX yang diperbolehkan.');
-        redirect('upload_cv.php');
+      flash('error', 'Hanya file PDF / DOC / DOCX yang diperbolehkan.');
+      redirect('upload_cv.php');
     }
 
     if ($file['size'] > 5 * 1024 * 1024) {
@@ -63,13 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $meta[] = $entry;
     file_put_contents($metaFile, json_encode($meta, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
-    flash('success', 'CV berhasil diunggah. Terima kasih!');
-    redirect('upload_cv.php');
+    flash('success', 'CV berhasil diunggah. Menampilkan pratinjau...');
+    redirect('upload_cv.php?preview=' . rawurlencode($basename));
 }
 
 $cvList = [];
 if (file_exists($metaFile)) {
-    $cvList = array_reverse(json_decode(file_get_contents($metaFile), true) ?: []);
+    $cvList = json_decode(file_get_contents($metaFile), true) ?: [];
 }
 
 $pageTitle = 'Upload CV Publik';
@@ -78,8 +83,8 @@ require __DIR__ . '/includes/header.php';
 
 <section class="max-w-4xl mx-auto px-6 py-12 cv-upload">
   <div class="card">
-    <h1 class="text-2xl font-bold">Upload CV untuk Dilihat Publik</h1>
-    <p class="text-sm text-zinc-500 mt-1">Siapa saja dapat mengunggah CV. CV akan tersedia untuk dilihat dan diunduh.</p>
+    <h1 class="text-2xl font-bold">Upload CV</h1>
+    <p class="text-sm text-zinc-500 mt-1">Unggah CV kamu. Setelah unggah kamu akan melihat pratinjau (PDF) atau link unduh.</p>
 
     <form method="POST" enctype="multipart/form-data" class="mt-6 grid grid-cols-1 gap-4">
       <div class="flex flex-col gap-2">
@@ -101,29 +106,42 @@ require __DIR__ . '/includes/header.php';
     </form>
   </div>
 
-  <div class="mt-8">
-    <h2 class="text-lg font-bold">CV Terbaru</h2>
-    <?php if (empty($cvList)): ?>
-      <div class="surface rounded-3xl p-8 mt-4 text-center"><p class="text-zinc-500">Belum ada CV yang diunggah.</p></div>
-    <?php else: ?>
-      <div class="cv-list mt-4">
-        <?php foreach ($cvList as $c): ?>
-          <div class="cv-card">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="font-semibold"><?= e($c['name']) ?></p>
-                <p class="meta"><?= e($c['original']) ?> • <?= date('d M Y H:i', strtotime($c['uploaded_at'])) ?></p>
-              </div>
-              <div class="actions">
-                <a href="uploads/cvs/<?= rawurlencode($c['filename']) ?>" target="_blank" class="text-sm text-accent">Lihat</a>
-                <a href="uploads/cvs/<?= rawurlencode($c['filename']) ?>" download class="text-sm text-zinc-600">Unduh</a>
-              </div>
+  <?php if (!empty($_GET['preview'])):
+    $previewFile = basename($_GET['preview']);
+    $meta = [];
+    if (file_exists($metaFile)) { $meta = json_decode(file_get_contents($metaFile), true) ?: []; }
+    $entry = null;
+    foreach ($meta as $m) { if ($m['filename'] === $previewFile) { $entry = $m; break; } }
+  ?>
+    <div class="cv-preview mt-8">
+      <?php if ($entry): ?>
+        <div class="surface rounded-3xl p-6">
+          <div class="flex items-start gap-6">
+            <div class="flex-1">
+              <p class="text-sm text-zinc-500">Unggah oleh</p>
+              <h2 class="text-lg font-semibold"><?= e($entry['name']) ?></h2>
+              <p class="text-xs text-zinc-400 mt-1"><?= e($entry['original']) ?> • <?= date('d M Y H:i', strtotime($entry['uploaded_at'])) ?></p>
+            </div>
+            <div class="shrink-0">
+              <a href="uploads/cvs/<?= rawurlencode($entry['filename']) ?>" class="btn-tactile bg-zinc-900 text-white px-4 py-2 rounded-lg" target="_blank">Buka di tab baru</a>
             </div>
           </div>
-        <?php endforeach; ?>
-      </div>
-    <?php endif; ?>
-  </div>
+
+          <div class="mt-6">
+            <?php if ($entry['mime'] === 'application/pdf'): ?>
+              <div class="preview-frame rounded-lg overflow-hidden border border-zinc-200">
+                <iframe src="uploads/cvs/<?= rawurlencode($entry['filename']) ?>" style="width:100%;height:650px;border:0;" title="Pratinjau CV"></iframe>
+              </div>
+            <?php else: ?>
+              <p class="text-sm text-zinc-500">Pratinjau hanya tersedia untuk PDF. <a href="uploads/cvs/<?= rawurlencode($entry['filename']) ?>" class="link-accent">Unduh file</a></p>
+            <?php endif; ?>
+          </div>
+        </div>
+      <?php else: ?>
+        <div class="surface rounded-3xl p-6 text-center"><p class="text-zinc-500">File pratinjau tidak ditemukan.</p></div>
+      <?php endif; ?>
+    </div>
+  <?php endif; ?>
 </section>
 
 <?php require __DIR__ . '/includes/footer.php';

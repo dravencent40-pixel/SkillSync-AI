@@ -44,13 +44,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <a href="<?= APP_URL ?>/logout.php" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Keluar</a>
       </div>
     <?php else: ?>
-      <nav class="hidden md:flex items-center gap-2 text-sm font-medium">
-        <a href="<?= APP_URL ?>/upload_cv.php" class="px-3 py-2 rounded-lg text-zinc-600 hover:bg-zinc-100">Upload CV</a>
-        <a href="<?= APP_URL ?>/company/talent.php" class="px-3 py-2 rounded-lg text-zinc-600 hover:bg-zinc-100">Talent Pool</a>
-      </nav>
       <div class="flex items-center gap-3">
-        <a href="<?= APP_URL ?>/login.php" class="text-zinc-600 hover:text-zinc-900 px-3 py-2">Masuk</a>
-        <a href="<?= APP_URL ?>/register.php" class="btn-tactile bg-zinc-900 text-white px-4 py-2 rounded-lg hover:bg-zinc-800">Daftar Gratis</a>
+        <!-- Login/Register removed as requested -->
       </div>
     <?php endif; ?>
   </div>
