@@ -17,6 +17,26 @@
   </div>
 </footer>
 
+<!-- Global preview modal -->
+<div id="previewModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-card">
+    <aside class="modal-aside">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.75rem;">
+        <div>
+          <h4 class="text-sm font-semibold">Pratinjau CV</h4>
+          <p class="text-xs muted">Lihat dokumen di sini</p>
+        </div>
+        <button class="modal-close" aria-label="Tutup">×</button>
+      </div>
+      <div class="modal-meta text-sm muted">—</div>
+      <div style="margin-top:1rem;font-size:.85rem;color:#6b7280">Tip: tekan Esc untuk menutup.</div>
+    </aside>
+    <div class="modal-body">
+      <iframe class="modal-iframe" src="about:blank" title="Pratinjau CV"></iframe>
+    </div>
+  </div>
+</div>
+
 <script src="<?= APP_URL ?>/assets/js/app.js"></script>
 </body>
 </html>

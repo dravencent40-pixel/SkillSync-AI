@@ -26,19 +26,33 @@ require __DIR__ . '/../includes/header.php';
       <p class="text-zinc-500 text-sm">Belum ada CV yang diunggah.</p>
     </div>
   <?php else: ?>
-  <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-entry">
     <?php foreach ($talents as $t): ?>
     <div class="cv-card">
-      <div class="flex items-center gap-3">
-        <span class="w-12 h-12 rounded-full bg-accent-light text-accent-dark grid place-items-center text-sm font-semibold"><?= e(initials($t['name'])) ?></span>
+      <div class="flex items-start gap-3">
+        <?php if (!empty($t['thumb']) && file_exists(__DIR__ . '/../' . $t['thumb'])): ?>
+          <img src="<?= APP_URL ?>/<?= ltrim($t['thumb'], '/') ?>" alt="thumb" class="w-12 h-12 rounded-md object-cover" />
+        <?php else: ?>
+          <span class="w-12 h-12 rounded-full bg-accent-light text-accent-dark grid place-items-center text-sm font-semibold"><?= e(initials($t['name'])) ?></span>
+        <?php endif; ?>
         <div class="flex-1">
-          <p class="font-semibold text-zinc-900"><?= e($t['name']) ?></p>
-          <p class="text-xs text-zinc-400 mt-1"><?= date('d M Y H:i', strtotime($t['uploaded_at'])) ?></p>
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="font-semibold text-zinc-900"><?= e($t['name']) ?></p>
+              <p class="meta"><?= e($t['original'] ?? '') ?></p>
+            </div>
+            <div class="text-right">
+              <div class="file-badge"><?= strtoupper(pathinfo($t['original'] ?? ($t['filename'] ?? ''), PATHINFO_EXTENSION) ?: 'PDF') ?></div>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between">
+            <p class="text-xs muted"><?= date('d M Y H:i', strtotime($t['uploaded_at'])) ?></p>
+            <div class="flex items-center gap-3">
+              <a href="#" data-preview="<?= APP_URL ?>/uploads/cvs/<?= rawurlencode($t['filename']) ?>" data-meta="<?= e($t['name']) ?> — <?= e($t['original']) ?>" class="text-sm text-accent">Pratinjau</a>
+              <a href="<?= APP_URL ?>/uploads/cvs/<?= rawurlencode($t['filename']) ?>" download class="text-sm text-zinc-600">Unduh</a>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="mt-4 flex items-center justify-between">
-        <a href="<?= APP_URL ?>/uploads/cvs/<?= rawurlencode($t['filename']) ?>" target="_blank" class="text-sm text-accent">Lihat</a>
-        <a href="<?= APP_URL ?>/uploads/cvs/<?= rawurlencode($t['filename']) ?>" download class="text-sm text-zinc-600">Unduh</a>
       </div>
     </div>
     <?php endforeach; ?>
