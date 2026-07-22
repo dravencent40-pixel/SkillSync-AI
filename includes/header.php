@@ -10,6 +10,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <title><?= isset($pageTitle) ? e($pageTitle) . ' · ' : '' ?>SkillSync AI</title>
 <meta name="description" content="Platform asesmen teknis berbasis AI untuk siswa SMK dan mitra industri.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/style.css">
 <script>
@@ -25,7 +27,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 </head>
 <body class="min-h-[100dvh] bg-[#fafafa] text-[#0a0a0a] antialiased">
 
-<header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: rgba(250,250,250,0.85); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(229,229,229,0.6);">
+<header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: rgba(250,250,250,0.95); border-bottom: 1px solid rgba(229,229,229,0.6);">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="<?= APP_URL ?>/index.php" class="flex items-center gap-3 shrink-0 group">
       <div class="w-9 h-9 rounded-xl flex items-center justify-center text-white font-bold text-sm transition-transform duration-300 group-hover:scale-110" style="background: var(--gradient-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.2);">

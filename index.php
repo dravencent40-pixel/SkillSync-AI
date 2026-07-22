@@ -131,21 +131,21 @@ $query = <span style="color: #a3a3a3;">"SELECT * FROM users WHERE u='$u'"</span>
       <p class="mt-3 text-sm text-neutral-400 max-w-md mx-auto">Solusi asesmen teknis yang transparan, efisien, dan terhubung langsung dengan industri.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
-      <div class="p-7 rounded-2xl border border-white/10" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);">
+      <div class="p-7 rounded-2xl border border-white/10" style="background: rgba(255,255,255,0.08);">
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background: rgba(255,255,255,0.1);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <p class="text-3xl font-extrabold text-white">100%</p>
         <p class="mt-2 text-sm text-neutral-400 leading-relaxed">Transparansi skor kompetensi teknis siswa, tanpa bias CV konvensional.</p>
       </div>
-      <div class="p-7 rounded-2xl border border-white/10" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);">
+      <div class="p-7 rounded-2xl border border-white/10" style="background: rgba(255,255,255,0.08);">
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background: rgba(255,255,255,0.1);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <p class="text-3xl font-extrabold text-white">24/7</p>
         <p class="mt-2 text-sm text-neutral-400 leading-relaxed">Mentor AI siap membimbing kapan saja, tidak terbatas jam kerja pembimbing.</p>
       </div>
-      <div class="p-7 rounded-2xl border border-white/10" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);">
+      <div class="p-7 rounded-2xl border border-white/10" style="background: rgba(255,255,255,0.08);">
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background: rgba(255,255,255,0.1);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
         </div>

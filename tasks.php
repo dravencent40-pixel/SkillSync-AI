@@ -119,7 +119,7 @@ require __DIR__ . '/includes/header.php';
 
 <!-- Create Task Modal (Mitra) -->
 <?php if ($user['role'] === 'mitra'): ?>
-<div id="newTaskModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(15,23,42,0.6); backdrop-filter: blur(4px);">
+  <div id="newTaskModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(15,23,42,0.6);">
   <div class="bg-white rounded-3xl max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto animate-scale-in" style="box-shadow: var(--shadow-xl);">
     <div class="flex items-center justify-between mb-6">
       <div>

@@ -13,7 +13,7 @@ define('DB_PASS', '');
 // --- Aplikasi -------------------------------------------------------------
 define('APP_NAME', 'SkillSync AI');
 // For local development with PHP built-in server, point to localhost:8000
-define('APP_URL', 'http://localhost:8000');
+define('APP_URL', 'https://ff1c4tdn-8000.asse.devtunnels.ms');
 
 // --- AI Agent (Anthropic Claude API) --------------------------------------
 // Kosongkan ANTHROPIC_API_KEY jika belum punya API key: sistem akan otomatis
