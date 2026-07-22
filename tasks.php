@@ -92,11 +92,11 @@ require __DIR__ . '/includes/header.php';
       <div class="flex items-center justify-between">
         <span class="badge badge-info"><?= e($t['category_name']) ?></span>
         <span class="flex items-center gap-1.5 text-[11px] font-medium text-[var(--muted)] capitalize">
-          <span class="w-1.5 h-1.5 rounded-full <?= $t['difficulty']==='mahir'?'bg-red-400':($t['difficulty']==='menengah'?'bg-amber-400':'bg-emerald-400') ?>"></span>
+          <span class="w-1.5 h-1.5 rounded-full <?= $t['difficulty']==='mahir'?'bg-red-400':($t['difficulty']==='menengah'?'bg-neutral-400':'bg-neutral-400') ?>"></span>
           <?= e($t['difficulty']) ?>
         </span>
       </div>
-      <h3 class="mt-4 font-semibold text-[var(--ink)] leading-snug group-hover:text-[var(--accent-600)] transition-colors"><?= e($t['title']) ?></h3>
+      <h3 class="mt-4 font-semibold text-[var(--ink)] leading-snug group-hover:text-[#0a0a0a] transition-colors"><?= e($t['title']) ?></h3>
       <p class="mt-2 text-xs text-[var(--muted)] line-clamp-3 leading-relaxed"><?= e(mb_substr($t['case_brief'], 0, 110)) ?>…</p>
       <div class="mt-5 pt-4 border-t border-[var(--border-light)] flex items-center justify-between">
         <span class="text-xs text-[var(--muted-light)] flex items-center gap-1.5">

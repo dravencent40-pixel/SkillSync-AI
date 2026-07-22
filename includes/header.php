@@ -15,37 +15,26 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <script>
   tailwind.config = { theme: { extend: {
     colors: {
-      accent: { DEFAULT: '#10b981', dark: '#059669', light: '#d1fae5', 50: '#ecfdf5', 700: '#047857' },
-      ink: { DEFAULT: '#0f172a', light: '#1e293b' },
-      muted: { DEFAULT: '#64748b', light: '#94a3b8' },
+      ink: { DEFAULT: '#0a0a0a', light: '#171717' },
+      muted: { DEFAULT: '#525252', light: '#737373' },
     },
     fontFamily: { sans: ['Outfit','sans-serif'], mono: ['JetBrains Mono','monospace'] },
     borderRadius: { '3xl': '2rem' },
-    animation: {
-      'fade-up': 'fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) both',
-      'float': 'float 3s ease-in-out infinite',
-    },
-    keyframes: {
-      fadeUp: { from: { opacity: 0, transform: 'translateY(12px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
-      float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
-    }
   } } };
 </script>
 </head>
-<body class="min-h-[100dvh] bg-[var(--paper)] text-[var(--ink)] antialiased">
+<body class="min-h-[100dvh] bg-[#fafafa] text-[#0a0a0a] antialiased">
 
-<header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: rgba(248,250,252,0.8); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(226,232,240,0.6);">
+<header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: rgba(250,250,250,0.85); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(229,229,229,0.6);">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <!-- Logo -->
     <a href="<?= APP_URL ?>/index.php" class="flex items-center gap-3 shrink-0 group">
-      <div class="w-9 h-9 rounded-xl flex items-center justify-center text-white font-bold text-sm transition-transform duration-300 group-hover:scale-110" style="background: var(--gradient-accent); box-shadow: 0 2px 8px rgba(16,185,129,0.3);">
+      <div class="w-9 h-9 rounded-xl flex items-center justify-center text-white font-bold text-sm transition-transform duration-300 group-hover:scale-110" style="background: var(--gradient-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       </div>
-      <span class="font-bold tracking-tight text-lg hidden sm:block">SkillSync <span style="color: var(--accent-600)">AI</span></span>
+      <span class="font-bold tracking-tight text-lg hidden sm:block">SkillSync <span class="text-neutral-500">AI</span></span>
     </a>
 
     <?php if ($user): ?>
-      <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-1">
         <?php
         $navItems = [];
@@ -73,22 +62,18 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <?php endforeach; ?>
       </nav>
 
-      <!-- Right side -->
       <div class="flex items-center gap-3">
         <div class="hidden sm:flex items-center gap-3">
-          <div class="avatar avatar-sm" style="background: var(--gradient-accent);">
-            <?= e(initials($user['name'])) ?>
-          </div>
+          <div class="avatar avatar-sm"><?= e(initials($user['name'])) ?></div>
           <div class="text-right">
-            <p class="text-xs font-semibold text-[var(--ink)] leading-tight"><?= e($user['name']) ?></p>
-            <p class="text-[10px] text-[var(--muted-light)] capitalize"><?= e($user['role']) ?></p>
+            <p class="text-xs font-semibold leading-tight"><?= e($user['name']) ?></p>
+            <p class="text-[10px] text-[#737373] capitalize"><?= e($user['role']) ?></p>
           </div>
         </div>
         <a href="<?= APP_URL ?>/logout.php" class="btn btn-ghost btn-sm hidden sm:inline-flex">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
           Keluar
         </a>
-        <!-- Hamburger -->
         <button class="hamburger md:hidden" id="hamburgerBtn" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
@@ -102,15 +87,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   </div>
 
   <?php if ($user): ?>
-  <!-- Mobile menu -->
   <div id="mobileMenu" class="mobile-menu md:hidden">
     <div class="flex items-center gap-3 p-4 mb-4 surface rounded-2xl">
-      <div class="avatar avatar-lg" style="background: var(--gradient-accent);">
-        <?= e(initials($user['name'])) ?>
-      </div>
+      <div class="avatar avatar-lg"><?= e(initials($user['name'])) ?></div>
       <div>
-        <p class="font-semibold text-[var(--ink)]"><?= e($user['name']) ?></p>
-        <p class="text-xs text-[var(--muted)] capitalize"><?= e($user['role']) ?></p>
+        <p class="font-semibold"><?= e($user['name']) ?></p>
+        <p class="text-xs text-[#737373] capitalize"><?= e($user['role']) ?></p>
       </div>
     </div>
     <nav class="flex flex-col gap-1">
@@ -123,7 +105,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </a>
       <?php endforeach; ?>
       <hr class="my-3 divider">
-      <a href="<?= APP_URL ?>/logout.php" class="nav-link flex items-center gap-3 py-3 text-red-500 hover:bg-red-50">
+      <a href="<?= APP_URL ?>/logout.php" class="nav-link flex items-center gap-3 py-3 text-red-600 hover:bg-red-50">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
         Keluar
       </a>
@@ -132,13 +114,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <?php endif; ?>
 </header>
 
-<!-- Spacer for fixed header -->
 <div class="h-16"></div>
 
 <main>
 <?php foreach (get_flashes() as $f): ?>
   <div class="max-w-7xl mx-auto px-6 pt-4 animate-fade-up">
-    <div class="rounded-2xl px-5 py-3.5 text-sm font-medium flex items-center gap-3 <?= $f['type']==='error' ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200' ?>">
+    <div class="rounded-2xl px-5 py-3.5 text-sm font-medium flex items-center gap-3 <?= $f['type']==='error' ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-neutral-100 text-neutral-700 border border-neutral-200' ?>">
       <?php if ($f['type']==='error'): ?>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></svg>
       <?php else: ?>

@@ -9,8 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $email = trim($_POST['email'] ?? '');
 
-    if (empty($name) || empty($_FILES['cv_file']['name'])) {
-        flash('error', 'Isi nama dan pilih file CV.');
+    if (empty($name) || empty($email) || empty($_FILES['cv_file']['name'])) {
+        flash('error', 'Isi nama lengkap, email, dan pilih file CV.');
+        redirect('upload_cv.php');
+    }
+    if (strlen($name) < 5) {
+        flash('error', 'Nama lengkap minimal 5 karakter.');
+        redirect('upload_cv.php');
+    }
+    if (strlen($email) < 5) {
+        flash('error', 'Email minimal 5 karakter.');
         redirect('upload_cv.php');
     }
 
@@ -131,17 +139,17 @@ require __DIR__ . '/includes/header.php';
       <div class="surface p-8 rounded-3xl">
         <form method="POST" enctype="multipart/form-data" class="space-y-5">
           <div>
-            <label for="name">Nama Lengkap</label>
-            <input type="text" id="name" name="name" required placeholder="Masukkan nama kamu">
+            <label for="name">Nama Lengkap <span class="text-[var(--muted-light)] font-normal">(minimal 3 karakter)</span></label>
+            <input type="text" id="name" name="name" required minlength="3" placeholder="Masukkan nama kamu">
           </div>
           <div>
-            <label for="email">Email <span class="text-[var(--muted-light)] font-normal">(opsional)</span></label>
-            <input type="email" id="email" name="email" placeholder="nama@email.com">
+            <label for="email">Email <span class="text-[var(--muted-light)] font-normal">(minimal 3 karakter)</span></label>
+            <input type="email" id="email" name="email" required minlength="3" placeholder="nama@email.com">
           </div>
           <div>
             <label>File CV</label>
             <div id="dropZone" class="file-input-custom cursor-pointer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
               <div class="flex-1">
                 <p class="text-sm font-medium text-[var(--ink)]" id="dropLabel">Pilih file atau seret ke sini</p>
                 <p class="text-xs text-[var(--muted)]">PDF, DOC, DOCX &middot; Maks 5MB</p>
@@ -161,22 +169,22 @@ require __DIR__ . '/includes/header.php';
     <div class="animate-fade-up" style="animation-delay: 0.2s;">
       <div class="surface p-6 rounded-2xl sticky top-24">
         <div class="flex items-center gap-2 mb-4">
-          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent-50); color: var(--accent-600);">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: #f5f5f5; color: #0a0a0a;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           </div>
           <h3 class="text-sm font-bold">Tips Cepat</h3>
         </div>
         <ul class="space-y-3 text-sm text-[var(--muted)]">
           <li class="flex items-start gap-2">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
             Gunakan PDF untuk pratinjau langsung.
           </li>
           <li class="flex items-start gap-2">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
             Pastikan ukuran di bawah 5MB.
           </li>
           <li class="flex items-start gap-2">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
             Hapus data sensitif sebelum mengunggah.
           </li>
         </ul>
@@ -233,8 +241,8 @@ const dropLabel = document.getElementById('dropLabel');
 fileInput.addEventListener('change', function() {
   if (this.files.length > 0) {
     dropLabel.textContent = this.files[0].name;
-    dropZone.style.borderColor = 'var(--accent)';
-    dropZone.style.background = 'var(--accent-50)';
+    dropZone.style.borderColor = '#0a0a0a';
+    dropZone.style.background = '#f5f5f5';
   }
 });
 
@@ -254,8 +262,8 @@ dropZone.addEventListener('drop', function(e) {
   if (e.dataTransfer.files.length > 0) {
     fileInput.files = e.dataTransfer.files;
     dropLabel.textContent = e.dataTransfer.files[0].name;
-    this.style.borderColor = 'var(--accent)';
-    this.style.background = 'var(--accent-50)';
+    this.style.borderColor = '#0a0a0a';
+    this.style.background = '#f5f5f5';
   }
 });
 </script>

@@ -73,8 +73,8 @@ require __DIR__ . '/includes/header.php';
           <circle class="progress" cx="50" cy="50" r="42" fill="none" stroke="url(#submissionGradient)" stroke-width="8" stroke-linecap="round"/>
           <defs>
             <linearGradient id="submissionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:#10b981"/>
-              <stop offset="100%" style="stop-color:#059669"/>
+              <stop offset="0%" style="stop-color:#0a0a0a"/>
+              <stop offset="100%" style="stop-color:#525252"/>
             </linearGradient>
           </defs>
         </svg>
@@ -89,23 +89,23 @@ require __DIR__ . '/includes/header.php';
     </div>
 
     <div class="lg:col-span-2 surface p-8 rounded-3xl grid grid-cols-3 gap-4">
-      <div class="text-center p-4 rounded-2xl hover:bg-[var(--accent-50)] transition-colors">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--accent-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <div class="text-center p-4 rounded-2xl hover:bg-[#f5f5f5] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$review['clean_code_score']) ?>"><?= (int)$review['clean_code_score'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Clean Code</p>
       </div>
-      <div class="text-center p-4 rounded-2xl hover:bg-[var(--info-50)] transition-colors">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--info-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="text-center p-4 rounded-2xl hover:bg-[#f5f5f5] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$review['security_score']) ?>"><?= (int)$review['security_score'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Keamanan</p>
       </div>
-      <div class="text-center p-4 rounded-2xl hover:bg-[var(--warning-50)] transition-colors">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--warning-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <div class="text-center p-4 rounded-2xl hover:bg-[#f5f5f5] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$review['efficiency_score']) ?>"><?= (int)$review['efficiency_score'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Efisiensi</p>
@@ -116,7 +116,7 @@ require __DIR__ . '/includes/header.php';
   <!-- Findings -->
   <div class="mt-10">
     <h2 class="text-lg font-bold mb-5 flex items-center gap-2">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
       Temuan Agent Auditor
     </h2>
     <div class="space-y-3 stagger">

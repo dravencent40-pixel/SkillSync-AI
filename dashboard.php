@@ -34,7 +34,7 @@ require __DIR__ . '/includes/header.php';
   <div class="welcome-banner animate-fade-up">
     <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div>
-        <p class="text-sm text-emerald-300 font-medium">Selamat datang kembali,</p>
+        <p class="text-sm text-neutral-400 font-medium">Selamat datang kembali,</p>
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white mt-1"><?= e($user['name']) ?></h1>
         <p class="mt-2 text-sm text-slate-400 max-w-md">Terus asah kemampuanmu dengan mengerjakan studi kasus industri baru. Skor kompetensimu akan terus diperbarui oleh AI.</p>
       </div>
@@ -55,8 +55,8 @@ require __DIR__ . '/includes/header.php';
           <circle class="progress" cx="50" cy="50" r="42" fill="none" stroke="url(#scoreGradient)" stroke-width="8" stroke-linecap="round"/>
           <defs>
             <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:#10b981"/>
-              <stop offset="100%" style="stop-color:#059669"/>
+              <stop offset="0%" style="stop-color:#0a0a0a"/>
+              <stop offset="100%" style="stop-color:#525252"/>
             </linearGradient>
           </defs>
         </svg>
@@ -73,23 +73,23 @@ require __DIR__ . '/includes/header.php';
 
     <!-- Metric Strips -->
     <div class="lg:col-span-2 surface p-8 rounded-3xl grid grid-cols-3 gap-4">
-      <div class="text-center p-4 rounded-2xl transition-all duration-200 hover:bg-[var(--accent-50)]">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--accent-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <div class="text-center p-4 rounded-2xl transition-all duration-200 hover:bg-[#f5f5f5]">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$profile['clean_code_avg']) ?>"><?= (int)$profile['clean_code_avg'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Clean Code</p>
       </div>
-      <div class="text-center p-4 rounded-2xl transition-all duration-200 hover:bg-[var(--info-50)]">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--info-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="text-center p-4 rounded-2xl transition-all duration-200 hover:bg-[#f5f5f5]">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$profile['security_avg']) ?>"><?= (int)$profile['security_avg'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Keamanan</p>
       </div>
-      <div class="text-center p-4 rounded-2xl transition-all duration-200 hover:bg-[var(--warning-50)]">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--warning-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <div class="text-center p-4 rounded-2xl transition-all duration-200 hover:bg-[#f5f5f5]">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$profile['efficiency_avg']) ?>"><?= (int)$profile['efficiency_avg'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Efisiensi</p>
@@ -121,9 +121,9 @@ require __DIR__ . '/includes/header.php';
       <?php foreach ($recommended as $t): ?>
       <a href="<?= APP_URL ?>/task.php?id=<?= $t['id'] ?>" class="surface surface-hover spot-card p-6 rounded-2xl group">
         <span class="badge badge-info"><?= e($t['category_name']) ?></span>
-        <h3 class="mt-4 font-semibold text-[var(--ink)] leading-snug group-hover:text-[var(--accent-600)] transition-colors"><?= e($t['title']) ?></h3>
+        <h3 class="mt-4 font-semibold text-[var(--ink)] leading-snug group-hover:text-[#0a0a0a] transition-colors"><?= e($t['title']) ?></h3>
         <p class="mt-2 text-xs text-[var(--muted)] capitalize flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full <?= $t['difficulty']==='mahir'?'bg-red-400':($t['difficulty']==='menengah'?'bg-amber-400':'bg-emerald-400') ?>"></span>
+          <span class="w-1.5 h-1.5 rounded-full <?= $t['difficulty']==='mahir'?'bg-red-400':($t['difficulty']==='menengah'?'bg-neutral-400':'bg-neutral-400') ?>"></span>
           <?= e($t['difficulty']) ?>
           <span class="text-[var(--border)]">&middot;</span>
           <?= e($t['industry_context']) ?>
@@ -150,9 +150,9 @@ require __DIR__ . '/includes/header.php';
     <?php else: ?>
     <div class="surface rounded-3xl overflow-hidden divide-y divide-[var(--border-light)]">
       <?php foreach ($recent as $r): ?>
-      <a href="<?= APP_URL ?>/submission.php?id=<?= $r['id'] ?>" class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[var(--accent-50)] group">
+      <a href="<?= APP_URL ?>/submission.php?id=<?= $r['id'] ?>" class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[#f5f5f5] group">
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center <?= $r['overall_score'] !== null ? ($r['overall_score'] >= 80 ? 'bg-emerald-50' : ($r['overall_score'] >= 60 ? 'bg-amber-50' : 'bg-red-50')) : 'bg-slate-50' ?>">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center <?= $r['overall_score'] !== null ? ($r['overall_score'] >= 80 ? 'bg-neutral-100' : ($r['overall_score'] >= 60 ? 'bg-neutral-100' : 'bg-red-50')) : 'bg-slate-50' ?>">
             <?php if ($r['overall_score'] !== null): ?>
               <span class="text-sm font-bold <?= score_color_class((int)$r['overall_score']) ?>"><?= (int)$r['overall_score'] ?></span>
             <?php else: ?>
@@ -160,7 +160,7 @@ require __DIR__ . '/includes/header.php';
             <?php endif; ?>
           </div>
           <div>
-            <p class="font-medium text-[var(--ink)] text-sm group-hover:text-[var(--accent-600)] transition-colors"><?= e($r['title']) ?></p>
+            <p class="font-medium text-[var(--ink)] text-sm group-hover:text-[#0a0a0a] transition-colors"><?= e($r['title']) ?></p>
             <p class="text-xs text-[var(--muted-light)] mt-0.5"><?= time_ago($r['submitted_at']) ?></p>
           </div>
         </div>
@@ -186,7 +186,7 @@ require __DIR__ . '/includes/header.php';
   <div class="welcome-banner animate-fade-up">
     <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div>
-        <p class="text-sm text-emerald-300 font-medium">Dashboard Mitra</p>
+        <p class="text-sm text-neutral-400 font-medium">Dashboard Mitra</p>
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white mt-1"><?= e($user['name']) ?></h1>
         <p class="mt-2 text-sm text-slate-400 max-w-md">Kelola studi kasus dan temukan talenta terbaik dari pool siswa SMK yang sudah terverifikasi kompetensinya.</p>
       </div>
@@ -201,7 +201,7 @@ require __DIR__ . '/includes/header.php';
   <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
     <div class="stat-card group">
       <div class="flex items-center justify-between mb-4">
-        <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: var(--accent-50); color: var(--accent-600);">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: #f5f5f5; color: #0a0a0a;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
       </div>
@@ -211,7 +211,7 @@ require __DIR__ . '/includes/header.php';
 
     <div class="stat-card group">
       <div class="flex items-center justify-between mb-4">
-        <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: var(--info-50); color: #3b82f6;">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: #f5f5f5; color: #525252;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
         </div>
       </div>
@@ -221,11 +221,11 @@ require __DIR__ . '/includes/header.php';
 
     <div class="stat-card group">
       <div class="flex items-center justify-between mb-4">
-        <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: var(--warning-50); color: #f59e0b;">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: #f5f5f5; color: #525252;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
       </div>
-      <p class="text-3xl font-extrabold text-[var(--accent-600)]"><?= count($topTalents) ?></p>
+      <p class="text-3xl font-extrabold text-[#0a0a0a]"><?= count($topTalents) ?></p>
       <p class="text-sm text-[var(--muted)] mt-1">Talenta dengan profil aktif</p>
     </div>
   </div>
@@ -249,16 +249,16 @@ require __DIR__ . '/includes/header.php';
     <?php else: ?>
     <div class="surface rounded-3xl overflow-hidden divide-y divide-[var(--border-light)]">
       <?php foreach ($topTalents as $i => $t): ?>
-      <a href="<?= APP_URL ?>/company/talent-detail.php?id=<?= $t['id'] ?>" class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[var(--accent-50)] group">
+      <a href="<?= APP_URL ?>/company/talent-detail.php?id=<?= $t['id'] ?>" class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[#f5f5f5] group">
         <div class="flex items-center gap-4">
           <div class="relative">
-            <span class="avatar avatar-md" style="background: <?= $i === 0 ? 'var(--gradient-accent)' : 'linear-gradient(135deg, #64748b, #475569)' ?>"><?= e(initials($t['name'])) ?></span>
+            <span class="avatar avatar-md" style="background: <?= $i === 0 ? 'var(--gradient-dark)' : 'linear-gradient(135deg, #64748b, #475569)' ?>"><?= e(initials($t['name'])) ?></span>
             <?php if ($i < 3): ?>
-              <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style="background: <?= $i === 0 ? '#f59e0b' : ($i === 1 ? '#94a3b8' : '#cd7f32') ?>"><?= $i + 1 ?></span>
+              <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style="background: <?= $i === 0 ? '#a3a3a3' : ($i === 1 ? '#d4d4d4' : '#a3a3a3') ?>"><?= $i + 1 ?></span>
             <?php endif; ?>
           </div>
           <div>
-            <p class="font-medium text-[var(--ink)] text-sm group-hover:text-[var(--accent-600)] transition-colors"><?= e($t['name']) ?></p>
+            <p class="font-medium text-[var(--ink)] text-sm group-hover:text-[#0a0a0a] transition-colors"><?= e($t['name']) ?></p>
             <p class="text-xs text-[var(--muted-light)]"><?= e($t['badge']) ?> &middot; <?= (int)$t['tasks_completed'] ?> task</p>
           </div>
         </div>
