@@ -8,7 +8,6 @@ $pdo = db();
 $pageTitle = 'Studi Kasus';
 $errors = [];
 
-// Mitra: buat task baru (Agent Task Issuer versi manual oleh manusia mitra)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $user['role'] === 'mitra') {
     $title = trim($_POST['title'] ?? '');
     $categoryId = (int) ($_POST['category_id'] ?? 0);
@@ -54,44 +53,62 @@ require __DIR__ . '/includes/header.php';
 ?>
 
 <section class="max-w-7xl mx-auto px-6 py-10">
-  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 animate-fade-up">
     <div>
-      <h1 class="text-3xl font-bold tracking-tight text-zinc-900">Studi Kasus</h1>
-      <p class="mt-1 text-sm text-zinc-500"><?= $user['role']==='siswa' ? 'Diterbitkan oleh Agent Task Issuer & mitra industri.' : 'Kelola bank soal yang akan disajikan Agent Task Issuer.' ?></p>
+      <h1 class="text-3xl font-bold tracking-tight">Studi Kasus</h1>
+      <p class="mt-1 text-sm text-[var(--muted)]"><?= $user['role']==='siswa' ? 'Diterbitkan oleh Agent Task Issuer & mitra industri.' : 'Kelola bank soal yang akan disajikan Agent Task Issuer.' ?></p>
     </div>
     <?php if ($user['role'] === 'mitra'): ?>
-    <button onclick="document.getElementById('newTaskModal').classList.remove('hidden')" class="btn-tactile bg-zinc-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-zinc-800 w-fit">+ Terbitkan Studi Kasus</button>
+    <button onclick="document.getElementById('newTaskModal').classList.remove('hidden')" class="btn btn-primary shrink-0">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+      + Terbitkan Studi Kasus
+    </button>
     <?php endif; ?>
   </div>
 
   <?php if ($errors): ?>
-    <div class="mt-6 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm px-4 py-3">
-      <?php foreach ($errors as $err): ?><p><?= e($err) ?></p><?php endforeach; ?>
+    <div class="mt-6 p-4 rounded-xl border border-red-200 flex items-start gap-3 animate-fade-up" style="background: var(--danger-50);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" class="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></svg>
+      <div class="text-sm text-red-700">
+        <?php foreach ($errors as $err): ?><p><?= e($err) ?></p><?php endforeach; ?>
+      </div>
     </div>
   <?php endif; ?>
 
   <?php if (empty($tasks)): ?>
-    <div class="mt-10 surface rounded-3xl p-14 text-center">
-      <p class="text-zinc-500 text-sm">Belum ada studi kasus tersedia.</p>
+    <div class="mt-10 surface rounded-3xl p-14">
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <p class="empty-state-title">Belum ada studi kasus</p>
+        <p class="empty-state-desc">Studi kasus akan muncul di sini setelah diterbitkan.</p>
+      </div>
     </div>
   <?php else: ?>
-  <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+  <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 stagger">
     <?php foreach ($tasks as $t): ?>
-    <div class="spot-card surface rounded-2xl p-6 flex flex-col">
+    <div class="surface surface-hover spot-card p-6 rounded-2xl flex flex-col group">
       <div class="flex items-center justify-between">
-        <span class="badge-info text-[11px] font-semibold px-2 py-1 rounded-full"><?= e($t['category_name']) ?></span>
-        <span class="text-[11px] font-medium text-zinc-400 capitalize"><?= e($t['difficulty']) ?></span>
+        <span class="badge badge-info"><?= e($t['category_name']) ?></span>
+        <span class="flex items-center gap-1.5 text-[11px] font-medium text-[var(--muted)] capitalize">
+          <span class="w-1.5 h-1.5 rounded-full <?= $t['difficulty']==='mahir'?'bg-red-400':($t['difficulty']==='menengah'?'bg-amber-400':'bg-emerald-400') ?>"></span>
+          <?= e($t['difficulty']) ?>
+        </span>
       </div>
-      <h3 class="mt-4 font-semibold text-zinc-900 leading-snug"><?= e($t['title']) ?></h3>
-      <p class="mt-2 text-xs text-zinc-500 line-clamp-3"><?= e(mb_substr($t['case_brief'], 0, 110)) ?>…</p>
-      <div class="mt-5 pt-4 border-t border-zinc-100 flex items-center justify-between">
-        <span class="text-xs text-zinc-400"><?= e($t['industry_context']) ?></span>
+      <h3 class="mt-4 font-semibold text-[var(--ink)] leading-snug group-hover:text-[var(--accent-600)] transition-colors"><?= e($t['title']) ?></h3>
+      <p class="mt-2 text-xs text-[var(--muted)] line-clamp-3 leading-relaxed"><?= e(mb_substr($t['case_brief'], 0, 110)) ?>…</p>
+      <div class="mt-5 pt-4 border-t border-[var(--border-light)] flex items-center justify-between">
+        <span class="text-xs text-[var(--muted-light)] flex items-center gap-1.5">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <?= e($t['industry_context']) ?>
+        </span>
         <?php if ($user['role'] === 'siswa'): ?>
-          <a href="<?= APP_URL ?>/task.php?id=<?= $t['id'] ?>" class="text-sm font-semibold link-accent">
-            <?= $t['done'] > 0 ? 'Lihat ulang →' : 'Kerjakan →' ?>
+          <a href="<?= APP_URL ?>/task.php?id=<?= $t['id'] ?>" class="link-accent text-sm">
+            <?= $t['done'] > 0 ? 'Lihat ulang' : 'Kerjakan' ?> →
           </a>
         <?php else: ?>
-          <span class="text-xs text-zinc-400"><?= (int)$t['submission_count'] ?> submission</span>
+          <span class="text-xs text-[var(--muted-light)]"><?= (int)$t['submission_count'] ?> submission</span>
         <?php endif; ?>
       </div>
     </div>
@@ -100,49 +117,55 @@ require __DIR__ . '/includes/header.php';
   <?php endif; ?>
 </section>
 
+<!-- Create Task Modal (Mitra) -->
 <?php if ($user['role'] === 'mitra'): ?>
-<div id="newTaskModal" class="hidden fixed inset-0 z-50 bg-zinc-900/40 backdrop-blur-sm grid place-items-center p-4">
-  <div class="bg-white rounded-3xl max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto animate-fade-up">
+<div id="newTaskModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(15,23,42,0.6); backdrop-filter: blur(4px);">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto animate-scale-in" style="box-shadow: var(--shadow-xl);">
     <div class="flex items-center justify-between mb-6">
-      <h2 class="text-lg font-bold text-zinc-900">Terbitkan Studi Kasus</h2>
-      <button onclick="document.getElementById('newTaskModal').classList.add('hidden')" class="text-zinc-400 hover:text-zinc-700 text-xl leading-none">&times;</button>
+      <div>
+        <h2 class="text-lg font-bold text-[var(--ink)]">Terbitkan Studi Kasus</h2>
+        <p class="text-xs text-[var(--muted)] mt-0.5">Isi detail studi kasus untuk siswa</p>
+      </div>
+      <button onclick="document.getElementById('newTaskModal').classList.add('hidden')" class="modal-close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+      </button>
     </div>
     <form method="POST" class="space-y-4">
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-zinc-700">Judul</label>
-        <input type="text" name="title" required class="border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent" placeholder="Perbaiki Endpoint API yang Rentan XSS">
+      <div>
+        <label>Judul</label>
+        <input type="text" name="title" required placeholder="Perbaiki Endpoint API yang Rentan XSS">
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <div class="flex flex-col gap-2">
-          <label class="text-sm font-medium text-zinc-700">Kategori</label>
-          <select name="category_id" required class="border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40">
+        <div>
+          <label>Kategori</label>
+          <select name="category_id" required>
             <?php foreach ($categories as $c): ?>
               <option value="<?= $c['id'] ?>"><?= e($c['name']) ?></option>
             <?php endforeach; ?>
           </select>
         </div>
-        <div class="flex flex-col gap-2">
-          <label class="text-sm font-medium text-zinc-700">Tingkat Kesulitan</label>
-          <select name="difficulty" class="border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40">
+        <div>
+          <label>Tingkat Kesulitan</label>
+          <select name="difficulty">
             <option value="pemula">Pemula</option>
             <option value="menengah">Menengah</option>
             <option value="mahir">Mahir</option>
           </select>
         </div>
       </div>
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-zinc-700">Konteks Industri</label>
-        <input type="text" name="industry_context" class="border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" placeholder="Fintech, E-commerce, Logistik…">
+      <div>
+        <label>Konteks Industri</label>
+        <input type="text" name="industry_context" placeholder="Fintech, E-commerce, Logistik…">
       </div>
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-zinc-700">Deskripsi Studi Kasus</label>
-        <textarea name="case_brief" required rows="4" class="border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" placeholder="Jelaskan permasalahan riil yang harus diselesaikan siswa…"></textarea>
+      <div>
+        <label>Deskripsi Studi Kasus</label>
+        <textarea name="case_brief" required rows="4" placeholder="Jelaskan permasalahan riil yang harus diselesaikan siswa…"></textarea>
       </div>
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-zinc-700">Kode Awal (opsional)</label>
-        <textarea name="starter_code" rows="4" class="code-editor border border-zinc-300 rounded-lg px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-accent/40" placeholder="<?php\n// kode bermasalah yang perlu diperbaiki siswa"></textarea>
+      <div>
+        <label>Kode Awal <span class="text-[var(--muted-light)] font-normal">(opsional)</span></label>
+        <textarea name="starter_code" rows="4" class="code-editor" style="background: var(--ink); color: #e2e8f0; font-size: 0.8125rem;" placeholder="<?php\n// kode bermasalah yang perlu diperbaiki siswa"></textarea>
       </div>
-      <button type="submit" class="btn-tactile w-full bg-zinc-900 text-white rounded-lg py-3 text-sm font-semibold hover:bg-zinc-800">Terbitkan</button>
+      <button type="submit" class="btn btn-dark w-full py-3">Terbitkan</button>
     </form>
   </div>
 </div>
