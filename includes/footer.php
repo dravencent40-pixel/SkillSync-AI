@@ -1,18 +1,61 @@
 </main>
 
-<footer class="mt-24 border-t border-zinc-200/70">
-  <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-    <div class="flex items-center gap-2.5">
-      <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white grid place-items-center font-bold text-xs">S</span>
-      <span class="text-sm text-zinc-500">SkillSync AI — Proposal Project Lomba AI Agent Innovation, Goodeva Technology.</span>
-    </div>
-    <div class="flex flex-col items-start sm:items-end gap-1">
-      <p class="text-xs text-zinc-400">Dibuat oleh Kelompok Tekabe &middot; Kategori Pendidikan / Inovatif</p>
-      <div class="flex items-center gap-3 text-xs">
-        <a href="mailto:taufiqridhoo34@gmail.com" class="text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer" onclick="window.location.href='mailto:taufiqridhoo34@gmail.com'; return false;">taufiqridhoo34@gmail.com</a>
-        <span class="text-zinc-300">&middot;</span>
-        <a href="mailto:riwantoraihan@gmail.com" class="text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer" onclick="window.location.href='mailto:riwantoraihan@gmail.com'; return false;">riwantoraihan@gmail.com</a>
+<!-- Footer -->
+<footer class="mt-24 border-t border-[var(--border-light)]" style="background: linear-gradient(180deg, var(--paper) 0%, #f1f5f9 100%);">
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+      <!-- Brand -->
+      <div class="md:col-span-5">
+        <a href="<?= APP_URL ?>" class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center text-white font-bold text-sm" style="background: var(--gradient-accent); box-shadow: 0 2px 8px rgba(16,185,129,0.3);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="font-bold tracking-tight text-lg">SkillSync <span style="color: var(--accent-600)">AI</span></span>
+        </a>
+        <p class="mt-4 text-sm text-[var(--muted)] leading-relaxed max-w-md">
+          Platform asesmen teknis berbasis AI yang mengotomatisasi penilaian studi kasus industri, menyediakan mentor interaktif, serta menyajikan profil kompetensi transparan.
+        </p>
+        <div class="mt-5 flex items-center gap-3">
+          <span class="badge badge-accent">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Lomba AI Agent Innovation
+          </span>
+          <span class="badge badge-info">Goodeva Technology</span>
+        </div>
       </div>
+
+      <!-- Links -->
+      <div class="md:col-span-3 md:col-start-7">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--muted-light)] mb-4">Platform</h4>
+        <ul class="space-y-2.5">
+          <li><a href="<?= APP_URL ?>/upload_cv.php" class="text-sm text-[var(--muted)] hover:text-[var(--accent-600)] transition-colors">Unggah CV</a></li>
+          <li><a href="<?= APP_URL ?>/company/talent.php" class="text-sm text-[var(--muted)] hover:text-[var(--accent-600)] transition-colors">Talent Pool</a></li>
+          <li><a href="<?= APP_URL ?>/login.php" class="text-sm text-[var(--muted)] hover:text-[var(--accent-600)] transition-colors">Masuk</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="md:col-span-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--muted-light)] mb-4">Kontak</h4>
+        <p class="text-sm text-[var(--muted)] mb-3">Dibuat oleh Kelompok Tekabe &middot; Kategori Pendidikan / Inovatif</p>
+        <div class="flex flex-col gap-2">
+          <a href="mailto:taufiqridhoo34@gmail.com" class="text-sm text-[var(--muted)] hover:text-[var(--accent-600)] transition-colors flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            taufiqridhoo34@gmail.com
+          </a>
+          <a href="mailto:riwantoraihan@gmail.com" class="text-sm text-[var(--muted)] hover:text-[var(--accent-600)] transition-colors flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            riwantoraihan@gmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-8 divider">
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-[var(--muted-light)]">&copy; <?= date('Y') ?> SkillSync AI. All rights reserved.</p>
+      <p class="text-xs text-[var(--muted-light)]">Powered by Anthropic Claude AI</p>
     </div>
   </div>
 </footer>
@@ -21,15 +64,22 @@
 <div id="previewModal" class="modal-overlay" aria-hidden="true">
   <div class="modal-card">
     <aside class="modal-aside">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.75rem;">
+      <div class="flex items-center justify-between gap-2 mb-4">
         <div>
-          <h4 class="text-sm font-semibold">Pratinjau CV</h4>
-          <p class="text-xs muted">Lihat dokumen di sini</p>
+          <h4 class="text-sm font-semibold text-[var(--ink)]">Pratinjau CV</h4>
+          <p class="text-xs text-[var(--muted)]">Lihat dokumen di sini</p>
         </div>
-        <button class="modal-close" aria-label="Tutup">×</button>
+        <button class="modal-close" aria-label="Tutup">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
       </div>
-      <div class="modal-meta text-sm muted">—</div>
-      <div style="margin-top:1rem;font-size:.85rem;color:#6b7280">Tip: tekan Esc untuk menutup.</div>
+      <div class="modal-meta text-sm text-[var(--muted)]">—</div>
+      <div class="mt-4 p-3 rounded-xl bg-white/60 border border-[var(--border-light)]">
+        <p class="text-xs text-[var(--muted)] flex items-center gap-2">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Tekan Esc untuk menutup
+        </p>
+      </div>
     </aside>
     <div class="modal-body">
       <iframe class="modal-iframe" src="about:blank" title="Pratinjau CV"></iframe>

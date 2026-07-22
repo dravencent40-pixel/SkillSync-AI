@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $user['role'] === 'siswa') {
         $ins->execute([$taskId, $user['id'], 'php', $code, $notes]);
         $submissionId = (int) $pdo->lastInsertId();
 
-        // --- Agent Reviewer & Auditor bekerja secara sinkron ---
         $review = (new ReviewerAuditorAgent())->review($code, $task['case_brief']);
         $pdo->prepare(
             'INSERT INTO ai_reviews (submission_id, clean_code_score, security_score, efficiency_score, overall_score, summary, findings_json)
@@ -38,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $user['role'] === 'siswa') {
         ]);
         $pdo->prepare("UPDATE submissions SET status='reviewed' WHERE id = ?")->execute([$submissionId]);
 
-        // --- Agent Profile Generator memperbarui skor kompetensi ---
         (new ProfileGeneratorAgent())->regenerate($user['id']);
 
         redirect('submission.php?id=' . $submissionId);
@@ -56,47 +54,83 @@ require __DIR__ . '/includes/header.php';
 ?>
 
 <section class="max-w-5xl mx-auto px-6 py-10">
-  <a href="<?= APP_URL ?>/tasks.php" class="text-sm text-zinc-500 hover:text-zinc-900">&larr; Kembali ke Studi Kasus</a>
+  <!-- Back link -->
+  <a href="<?= APP_URL ?>/tasks.php" class="inline-flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--ink)] transition-colors mb-6">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Kembali ke Studi Kasus
+  </a>
 
-  <div class="mt-4 flex items-center gap-2">
-    <span class="badge-info text-[11px] font-semibold px-2 py-1 rounded-full"><?= e($task['category_name']) ?></span>
-    <span class="text-[11px] font-medium text-zinc-400 capitalize"><?= e($task['difficulty']) ?></span>
+  <!-- Task Header -->
+  <div class="animate-fade-up">
+    <div class="flex items-center gap-2">
+      <span class="badge badge-info"><?= e($task['category_name']) ?></span>
+      <span class="flex items-center gap-1.5 text-[11px] font-medium text-[var(--muted)] capitalize">
+        <span class="w-1.5 h-1.5 rounded-full <?= $task['difficulty']==='mahir'?'bg-red-400':($task['difficulty']==='menengah'?'bg-amber-400':'bg-emerald-400') ?>"></span>
+        <?= e($task['difficulty']) ?>
+      </span>
+    </div>
+    <h1 class="mt-3 text-2xl md:text-3xl font-bold tracking-tight"><?= e($task['title']) ?></h1>
+    <p class="mt-1 text-sm text-[var(--muted)]">Konteks industri: <?= e($task['industry_context'] ?: '-') ?></p>
   </div>
-  <h1 class="mt-3 text-3xl font-bold tracking-tight text-zinc-900"><?= e($task['title']) ?></h1>
-  <p class="mt-1 text-sm text-zinc-500">Konteks industri: <?= e($task['industry_context'] ?: '-') ?></p>
 
-  <div class="mt-8 surface rounded-3xl p-8">
-    <p class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">Brief dari Agent Task Issuer</p>
-    <p class="text-sm text-zinc-700 leading-relaxed whitespace-pre-line"><?= e($task['case_brief']) ?></p>
+  <!-- Brief Card -->
+  <div class="mt-8 surface rounded-3xl p-8 animate-fade-up" style="animation-delay: 0.1s;">
+    <div class="flex items-center gap-2 mb-4">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent-50); color: var(--accent-600);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)]">Brief dari Agent Task Issuer</p>
+    </div>
+    <p class="text-sm text-[var(--ink-light)] leading-relaxed whitespace-pre-line"><?= e($task['case_brief']) ?></p>
 
     <?php if ($task['starter_code']): ?>
-    <p class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mt-6 mb-3">Kode Awal</p>
-    <pre class="rounded-2xl bg-zinc-900 text-zinc-100 font-mono text-xs p-5 overflow-x-auto"><?= e($task['starter_code']) ?></pre>
+    <div class="mt-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)] mb-3 flex items-center gap-2">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Kode Awal
+      </p>
+      <pre class="code-block"><?= e($task['starter_code']) ?></pre>
+    </div>
     <?php endif; ?>
   </div>
 
   <?php if ($user['role'] === 'siswa'): ?>
     <?php if ($mySubmission): ?>
-      <div class="mt-6 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm px-4 py-3 flex items-center justify-between">
-        <span>Kamu sudah pernah mengirim solusi untuk studi kasus ini.</span>
-        <a href="<?= APP_URL ?>/submission.php?id=<?= $mySubmission['id'] ?>" class="font-semibold link-accent">Lihat hasil audit &rarr;</a>
+      <div class="mt-6 p-4 rounded-2xl border border-emerald-200 flex items-center justify-between animate-fade-up" style="background: var(--success-50);">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent-50); color: var(--accent-600);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <span class="text-sm text-emerald-700">Kamu sudah pernah mengirim solusi untuk studi kasus ini.</span>
+        </div>
+        <a href="<?= APP_URL ?>/submission.php?id=<?= $mySubmission['id'] ?>" class="link-accent text-sm shrink-0">Lihat hasil &rarr;</a>
       </div>
     <?php endif; ?>
 
     <?php if ($errors): ?>
-      <div class="mt-6 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm px-4 py-3">
-        <?php foreach ($errors as $err): ?><p><?= e($err) ?></p><?php endforeach; ?>
+      <div class="mt-6 p-4 rounded-xl border border-red-200 flex items-start gap-3" style="background: var(--danger-50);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" class="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></svg>
+        <div class="text-sm text-red-700">
+          <?php foreach ($errors as $err): ?><p><?= e($err) ?></p><?php endforeach; ?>
+        </div>
       </div>
     <?php endif; ?>
 
+    <!-- Submission Form -->
     <form method="POST" class="mt-6 surface rounded-3xl p-8" id="submitForm">
-      <p class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">Kirim Solusi Kamu</p>
-      <textarea name="code_content" rows="14" required class="code-editor w-full border border-zinc-300 rounded-2xl px-4 py-4 text-xs bg-zinc-900 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-accent/40" placeholder="Tempel kode PHP kamu di sini..."><?= e($task['starter_code'] ?? '') ?></textarea>
-      <div class="mt-4 flex flex-col gap-2">
-        <label class="text-sm font-medium text-zinc-700">Catatan untuk reviewer (opsional)</label>
-        <textarea name="notes" rows="2" class="border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" placeholder="Jelaskan pendekatan yang kamu ambil…"></textarea>
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--ink); color: white;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)]">Kirim Solusi Kamu</p>
       </div>
-      <button type="submit" id="submitBtn" class="btn-tactile mt-5 bg-zinc-900 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-zinc-800">
+      <textarea name="code_content" rows="14" required class="code-editor w-full rounded-2xl px-5 py-4 text-xs focus:ring-2 focus:ring-[var(--accent)]/40" style="background: var(--ink); color: #e2e8f0; border: 2px solid var(--ink-light);" placeholder="Tempel kode PHP kamu di sini..."><?= e($task['starter_code'] ?? '') ?></textarea>
+      <div class="mt-4">
+        <label>Catatan untuk reviewer <span class="text-[var(--muted-light)] font-normal">(opsional)</span></label>
+        <textarea name="notes" rows="2" placeholder="Jelaskan pendekatan yang kamu ambil…"></textarea>
+      </div>
+      <button type="submit" id="submitBtn" class="btn btn-dark mt-5 px-8">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         Kirim untuk Diaudit Agent Reviewer
       </button>
     </form>
@@ -104,7 +138,7 @@ require __DIR__ . '/includes/header.php';
       document.getElementById('submitForm').addEventListener('submit', function () {
         var btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.innerHTML = 'Agent Reviewer sedang mengaudit kode kamu…';
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="animate-spin"><circle cx="12" cy="12" r="10" stroke-dasharray="31.4" stroke-dashoffset="10"/></svg> Agent Reviewer sedang mengaudit kode kamu…';
         btn.classList.add('opacity-70');
       });
     </script>

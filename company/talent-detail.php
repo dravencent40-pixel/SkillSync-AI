@@ -52,79 +52,128 @@ require __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="max-w-4xl mx-auto px-6 py-10">
-  <a href="<?= APP_URL ?>/company/talent.php" class="text-sm text-zinc-500 hover:text-zinc-900">&larr; Kembali ke Talent Pool</a>
+  <!-- Back -->
+  <a href="<?= APP_URL ?>/company/talent.php" class="inline-flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--ink)] transition-colors mb-6">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Kembali ke Talent Pool
+  </a>
 
-  <div class="mt-4 flex flex-col md:flex-row md:items-center justify-between gap-6">
-    <div class="flex items-center gap-4">
-      <span class="w-16 h-16 rounded-2xl bg-accent-light text-accent-dark grid place-items-center text-xl font-bold"><?= e(initials($talent['name'])) ?></span>
+  <!-- Profile Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-fade-up">
+    <div class="flex items-center gap-5">
+      <div class="avatar avatar-xl" style="background: var(--gradient-accent); box-shadow: 0 4px 16px rgba(16,185,129,0.2);">
+        <?= e(initials($talent['name'])) ?>
+      </div>
       <div>
-        <h1 class="text-2xl font-bold tracking-tight text-zinc-900"><?= e($talent['name']) ?></h1>
-        <p class="text-sm text-zinc-500"><?= e($talent['jurusan'] ?: '-') ?> &middot; <?= e($talent['sekolah'] ?: 'SMKN 9 Bekasi') ?></p>
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight"><?= e($talent['name']) ?></h1>
+        <p class="text-sm text-[var(--muted)] mt-1"><?= e($talent['jurusan'] ?: '-') ?> &middot; <?= e($talent['sekolah'] ?: 'SMKN 9 Bekasi') ?></p>
       </div>
     </div>
-    <span class="text-xs font-semibold px-3 py-1.5 rounded-full badge-info w-fit"><?= e($talent['badge']) ?></span>
+    <span class="badge badge-info shrink-0"><?= e($talent['badge']) ?></span>
   </div>
 
-  <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div class="surface rounded-3xl p-8 flex items-center gap-6 lg:col-span-1">
+  <!-- Score Overview -->
+  <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6 stagger">
+    <div class="surface spot-card p-8 flex items-center gap-6 lg:col-span-1 rounded-3xl">
       <div class="relative w-24 h-24 shrink-0">
         <svg class="score-ring w-24 h-24" data-score="<?= (int)$talent['overall_score'] ?>" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" fill="none" stroke="#e4e4e7" stroke-width="9"/>
-          <circle class="progress" cx="50" cy="50" r="42" fill="none" stroke="#059669" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+          <circle class="progress" cx="50" cy="50" r="42" fill="none" stroke="url(#talentGradient)" stroke-width="8" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="talentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#10b981"/>
+              <stop offset="100%" style="stop-color:#059669"/>
+            </linearGradient>
+          </defs>
         </svg>
         <div class="absolute inset-0 grid place-items-center">
-          <span class="text-xl font-extrabold text-zinc-900"><?= (int)$talent['overall_score'] ?></span>
+          <span class="text-xl font-extrabold text-[var(--ink)]"><?= (int)$talent['overall_score'] ?></span>
         </div>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Skor Keseluruhan</p>
-        <p class="mt-1 text-xs text-zinc-500"><?= (int)$talent['tasks_completed'] ?> studi kasus diselesaikan</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)]">Skor Keseluruhan</p>
+        <p class="text-xs text-[var(--muted)] mt-1"><?= (int)$talent['tasks_completed'] ?> studi kasus diselesaikan</p>
       </div>
     </div>
-    <div class="lg:col-span-2 surface rounded-3xl p-8 grid grid-cols-3 divide-x divide-zinc-200">
-      <div class="px-4 text-center first:pl-0">
+
+    <div class="lg:col-span-2 surface p-8 rounded-3xl grid grid-cols-3 gap-4">
+      <div class="text-center p-4 rounded-2xl hover:bg-[var(--accent-50)] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--accent-50);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$talent['clean_code_avg']) ?>"><?= (int)$talent['clean_code_avg'] ?></p>
-        <p class="text-xs text-zinc-500 mt-1">Clean Code</p>
+        <p class="text-xs text-[var(--muted)] mt-1 font-medium">Clean Code</p>
       </div>
-      <div class="px-4 text-center">
+      <div class="text-center p-4 rounded-2xl hover:bg-[var(--info-50)] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--info-50);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$talent['security_avg']) ?>"><?= (int)$talent['security_avg'] ?></p>
-        <p class="text-xs text-zinc-500 mt-1">Keamanan</p>
+        <p class="text-xs text-[var(--muted)] mt-1 font-medium">Keamanan</p>
       </div>
-      <div class="px-4 text-center">
+      <div class="text-center p-4 rounded-2xl hover:bg-[var(--warning-50)] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--warning-50);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$talent['efficiency_avg']) ?>"><?= (int)$talent['efficiency_avg'] ?></p>
-        <p class="text-xs text-zinc-500 mt-1">Efisiensi</p>
+        <p class="text-xs text-[var(--muted)] mt-1 font-medium">Efisiensi</p>
       </div>
     </div>
   </div>
 
-  <!-- Recommendation action -->
+  <!-- Recruitment Status -->
   <div class="mt-8 surface rounded-3xl p-8">
-    <p class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">Status Rekrutmen</p>
+    <div class="flex items-center gap-2 mb-4">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent-50); color: var(--accent-600);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)]">Status Rekrutmen</p>
+    </div>
     <form method="POST" class="flex flex-col sm:flex-row gap-4">
-      <select name="status" class="border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm">
+      <select name="status" class="flex-1">
         <?php foreach (['disimpan'=>'Disimpan','dihubungi'=>'Dihubungi','interview'=>'Interview','magang'=>'Diterima Magang'] as $val=>$label): ?>
           <option value="<?= $val ?>" <?= ($rec['status'] ?? '')===$val?'selected':'' ?>><?= $label ?></option>
         <?php endforeach; ?>
       </select>
-      <input type="text" name="note" value="<?= e($rec['note'] ?? '') ?>" placeholder="Catatan internal (opsional)" class="flex-1 border border-zinc-300 rounded-lg px-3.5 py-2.5 text-sm">
-      <button type="submit" class="btn-tactile bg-zinc-900 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-zinc-800">Simpan</button>
+      <input type="text" name="note" value="<?= e($rec['note'] ?? '') ?>" placeholder="Catatan internal (opsional)" class="flex-1">
+      <button type="submit" class="btn btn-dark shrink-0">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Simpan
+      </button>
     </form>
   </div>
 
   <!-- History -->
   <div class="mt-10">
-    <h2 class="text-lg font-bold text-zinc-900 mb-4">Riwayat Studi Kasus</h2>
+    <h2 class="text-lg font-bold mb-5">Riwayat Studi Kasus</h2>
     <?php if (empty($history)): ?>
-      <div class="surface rounded-3xl p-10 text-center"><p class="text-zinc-500 text-sm">Belum ada riwayat.</p></div>
-    <?php else: ?>
-    <div class="surface rounded-3xl divide-y divide-zinc-200">
-      <?php foreach ($history as $h): ?>
-      <a href="<?= APP_URL ?>/submission.php?id=<?= $h['id'] ?>" class="flex items-center justify-between px-6 py-4 hover:bg-zinc-50 transition-colors">
-        <div>
-          <p class="font-medium text-zinc-900 text-sm"><?= e($h['title']) ?></p>
-          <p class="text-xs text-zinc-400 mt-0.5"><?= time_ago($h['submitted_at']) ?></p>
+      <div class="surface rounded-3xl p-12">
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <p class="empty-state-title">Belum ada riwayat</p>
+          <p class="empty-state-desc">Talenta ini belum menyelesaikan studi kasus.</p>
         </div>
-        <span class="font-bold <?= score_color_class((int)$h['overall_score']) ?>"><?= (int)$h['overall_score'] ?></span>
+      </div>
+    <?php else: ?>
+    <div class="surface rounded-3xl overflow-hidden divide-y divide-[var(--border-light)]">
+      <?php foreach ($history as $h): ?>
+      <a href="<?= APP_URL ?>/submission.php?id=<?= $h['id'] ?>" class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[var(--accent-50)] group">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center <?= $h['overall_score'] !== null ? ($h['overall_score'] >= 80 ? 'bg-emerald-50' : ($h['overall_score'] >= 60 ? 'bg-amber-50' : 'bg-red-50')) : 'bg-slate-50' ?>">
+            <?php if ($h['overall_score'] !== null): ?>
+              <span class="text-sm font-bold <?= score_color_class((int)$h['overall_score']) ?>"><?= (int)$h['overall_score'] ?></span>
+            <?php else: ?>
+              <div class="w-3 h-3 rounded-full bg-slate-300 animate-pulse"></div>
+            <?php endif; ?>
+          </div>
+          <div>
+            <p class="font-medium text-[var(--ink)] text-sm group-hover:text-[var(--accent-600)] transition-colors"><?= e($h['title']) ?></p>
+            <p class="text-xs text-[var(--muted-light)] mt-0.5"><?= time_ago($h['submitted_at']) ?></p>
+          </div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted-light)" stroke-width="2" class="opacity-0 group-hover:opacity-100 transition-opacity"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
       <?php endforeach; ?>
     </div>
