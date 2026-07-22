@@ -65,7 +65,7 @@ require __DIR__ . '/includes/header.php';
     <div class="flex items-center gap-2">
       <span class="badge badge-info"><?= e($task['category_name']) ?></span>
       <span class="flex items-center gap-1.5 text-[11px] font-medium text-[var(--muted)] capitalize">
-        <span class="w-1.5 h-1.5 rounded-full <?= $task['difficulty']==='mahir'?'bg-red-400':($task['difficulty']==='menengah'?'bg-amber-400':'bg-emerald-400') ?>"></span>
+        <span class="w-1.5 h-1.5 rounded-full <?= $task['difficulty']==='mahir'?'bg-red-400':($task['difficulty']==='menengah'?'bg-neutral-400':'bg-neutral-400') ?>"></span>
         <?= e($task['difficulty']) ?>
       </span>
     </div>
@@ -76,7 +76,7 @@ require __DIR__ . '/includes/header.php';
   <!-- Brief Card -->
   <div class="mt-8 surface rounded-3xl p-8 animate-fade-up" style="animation-delay: 0.1s;">
     <div class="flex items-center gap-2 mb-4">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent-50); color: var(--accent-600);">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: #f5f5f5; color: #0a0a0a;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
       </div>
       <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)]">Brief dari Agent Task Issuer</p>
@@ -96,12 +96,12 @@ require __DIR__ . '/includes/header.php';
 
   <?php if ($user['role'] === 'siswa'): ?>
     <?php if ($mySubmission): ?>
-      <div class="mt-6 p-4 rounded-2xl border border-emerald-200 flex items-center justify-between animate-fade-up" style="background: var(--success-50);">
+      <div class="mt-6 p-4 rounded-2xl border border-neutral-200 flex items-center justify-between animate-fade-up" style="background: #f5f5f5;">
         <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent-50); color: var(--accent-600);">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: #f5f5f5; color: #0a0a0a;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           </div>
-          <span class="text-sm text-emerald-700">Kamu sudah pernah mengirim solusi untuk studi kasus ini.</span>
+          <span class="text-sm text-neutral-700">Kamu sudah pernah mengirim solusi untuk studi kasus ini.</span>
         </div>
         <a href="<?= APP_URL ?>/submission.php?id=<?= $mySubmission['id'] ?>" class="link-accent text-sm shrink-0">Lihat hasil &rarr;</a>
       </div>
@@ -124,7 +124,7 @@ require __DIR__ . '/includes/header.php';
         </div>
         <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)]">Kirim Solusi Kamu</p>
       </div>
-      <textarea name="code_content" rows="14" required class="code-editor w-full rounded-2xl px-5 py-4 text-xs focus:ring-2 focus:ring-[var(--accent)]/40" style="background: var(--ink); color: #e2e8f0; border: 2px solid var(--ink-light);" placeholder="Tempel kode PHP kamu di sini..."><?= e($task['starter_code'] ?? '') ?></textarea>
+      <textarea name="code_content" rows="14" required class="code-editor w-full rounded-2xl px-5 py-4 text-xs focus:ring-2 focus:ring-neutral-300" style="background: var(--ink); color: #e2e8f0; border: 2px solid var(--ink-light);" placeholder="Tempel kode PHP kamu di sini..."><?= e($task['starter_code'] ?? '') ?></textarea>
       <div class="mt-4">
         <label>Catatan untuk reviewer <span class="text-[var(--muted-light)] font-normal">(opsional)</span></label>
         <textarea name="notes" rows="2" placeholder="Jelaskan pendekatan yang kamu ambil…"></textarea>

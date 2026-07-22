@@ -49,7 +49,7 @@ require __DIR__ . '/includes/header.php';
     <div>
       <h1 class="text-lg font-bold">Agent Mentor</h1>
       <p class="text-xs text-[var(--muted)] flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-neutral-400 animate-pulse"></span>
         <?= $taskTitle ? 'Konteks: ' . e($taskTitle) : 'Sesi bebas' ?>
       </p>
     </div>
@@ -77,7 +77,7 @@ require __DIR__ . '/includes/header.php';
     <input type="hidden" id="conversationId" value="<?= (int)$conversation['id'] ?>">
     <div class="flex-1 relative">
       <textarea id="chatInput" rows="1" required placeholder="Tanyakan tentang bug, konsep, atau feedback kode kamu…"
-        class="w-full resize-none pr-12 py-3 px-4 rounded-2xl border-2 border-[var(--border)] focus:border-[var(--accent)] text-sm"></textarea>
+        class="w-full resize-none pr-12 py-3 px-4 rounded-2xl border-2 border-[var(--border)] focus:border-neutral-400 text-sm"></textarea>
     </div>
     <button type="submit" id="sendBtn" class="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 text-white transition-all duration-200 hover:scale-105 active:scale-95" style="background: var(--gradient-dark); box-shadow: 0 2px 8px rgba(15,23,42,0.2);">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -100,7 +100,7 @@ function bubble(sender, text) {
   const initials = sender === 'agent' ? 'M' : '<?= e(initials($user["name"])) ?>';
   const avatarStyle = sender === 'agent'
     ? 'background: var(--gradient-dark); color: white; border-radius: 0.75rem; width: 2rem; height: 2rem; display: grid; place-items: center; font-size: 0.6875rem; font-weight: 700; flex-shrink: 0;'
-    : 'background: var(--gradient-accent); color: white; border-radius: 0.75rem; width: 2rem; height: 2rem; display: grid; place-items: center; font-size: 0.6875rem; font-weight: 700; flex-shrink: 0;';
+    : 'background: var(--gradient-dark); color: white; border-radius: 0.75rem; width: 2rem; height: 2rem; display: grid; place-items: center; font-size: 0.6875rem; font-weight: 700; flex-shrink: 0;';
   const bubbleClass = sender === 'agent' ? 'bubble-agent' : 'bubble-user';
   wrap.innerHTML = `<span style="${avatarStyle}">${initials}</span>
                      <div class="${bubbleClass} px-4 py-3 text-sm leading-relaxed"></div>`;

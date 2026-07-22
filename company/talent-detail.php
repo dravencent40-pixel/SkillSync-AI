@@ -61,7 +61,7 @@ require __DIR__ . '/../includes/header.php';
   <!-- Profile Header -->
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-fade-up">
     <div class="flex items-center gap-5">
-      <div class="avatar avatar-xl" style="background: var(--gradient-accent); box-shadow: 0 4px 16px rgba(16,185,129,0.2);">
+      <div class="avatar avatar-xl" style="background: var(--gradient-dark); box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
         <?= e(initials($talent['name'])) ?>
       </div>
       <div>
@@ -81,8 +81,8 @@ require __DIR__ . '/../includes/header.php';
           <circle class="progress" cx="50" cy="50" r="42" fill="none" stroke="url(#talentGradient)" stroke-width="8" stroke-linecap="round"/>
           <defs>
             <linearGradient id="talentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:#10b981"/>
-              <stop offset="100%" style="stop-color:#059669"/>
+              <stop offset="0%" style="stop-color:#0a0a0a"/>
+              <stop offset="100%" style="stop-color:#525252"/>
             </linearGradient>
           </defs>
         </svg>
@@ -97,23 +97,23 @@ require __DIR__ . '/../includes/header.php';
     </div>
 
     <div class="lg:col-span-2 surface p-8 rounded-3xl grid grid-cols-3 gap-4">
-      <div class="text-center p-4 rounded-2xl hover:bg-[var(--accent-50)] transition-colors">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--accent-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <div class="text-center p-4 rounded-2xl hover:bg-[#f5f5f5] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$talent['clean_code_avg']) ?>"><?= (int)$talent['clean_code_avg'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Clean Code</p>
       </div>
-      <div class="text-center p-4 rounded-2xl hover:bg-[var(--info-50)] transition-colors">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--info-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="text-center p-4 rounded-2xl hover:bg-[#f5f5f5] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$talent['security_avg']) ?>"><?= (int)$talent['security_avg'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Keamanan</p>
       </div>
-      <div class="text-center p-4 rounded-2xl hover:bg-[var(--warning-50)] transition-colors">
-        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: var(--warning-50);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <div class="text-center p-4 rounded-2xl hover:bg-[#f5f5f5] transition-colors">
+        <div class="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: #f5f5f5;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
         <p class="text-2xl font-extrabold <?= score_color_class((int)$talent['efficiency_avg']) ?>"><?= (int)$talent['efficiency_avg'] ?></p>
         <p class="text-xs text-[var(--muted)] mt-1 font-medium">Efisiensi</p>
@@ -124,7 +124,7 @@ require __DIR__ . '/../includes/header.php';
   <!-- Recruitment Status -->
   <div class="mt-8 surface rounded-3xl p-8">
     <div class="flex items-center gap-2 mb-4">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent-50); color: var(--accent-600);">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: #f5f5f5; color: #0a0a0a;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
       <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-light)]">Status Rekrutmen</p>
@@ -159,9 +159,9 @@ require __DIR__ . '/../includes/header.php';
     <?php else: ?>
     <div class="surface rounded-3xl overflow-hidden divide-y divide-[var(--border-light)]">
       <?php foreach ($history as $h): ?>
-      <a href="<?= APP_URL ?>/submission.php?id=<?= $h['id'] ?>" class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[var(--accent-50)] group">
+      <a href="<?= APP_URL ?>/submission.php?id=<?= $h['id'] ?>" class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[#f5f5f5] group">
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center <?= $h['overall_score'] !== null ? ($h['overall_score'] >= 80 ? 'bg-emerald-50' : ($h['overall_score'] >= 60 ? 'bg-amber-50' : 'bg-red-50')) : 'bg-slate-50' ?>">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center <?= $h['overall_score'] !== null ? ($h['overall_score'] >= 80 ? 'bg-neutral-100' : ($h['overall_score'] >= 60 ? 'bg-neutral-100' : 'bg-red-50')) : 'bg-slate-50' ?>">
             <?php if ($h['overall_score'] !== null): ?>
               <span class="text-sm font-bold <?= score_color_class((int)$h['overall_score']) ?>"><?= (int)$h['overall_score'] ?></span>
             <?php else: ?>
@@ -169,7 +169,7 @@ require __DIR__ . '/../includes/header.php';
             <?php endif; ?>
           </div>
           <div>
-            <p class="font-medium text-[var(--ink)] text-sm group-hover:text-[var(--accent-600)] transition-colors"><?= e($h['title']) ?></p>
+            <p class="font-medium text-[var(--ink)] text-sm group-hover:text-[#0a0a0a] transition-colors"><?= e($h['title']) ?></p>
             <p class="text-xs text-[var(--muted-light)] mt-0.5"><?= time_ago($h['submitted_at']) ?></p>
           </div>
         </div>
