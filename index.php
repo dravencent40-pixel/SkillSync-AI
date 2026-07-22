@@ -22,11 +22,11 @@ require __DIR__ . '/includes/header.php';
       yang siap direkomendasikan langsung ke perusahaan mitra.
     </p>
     <div class="mt-9 flex flex-wrap gap-3">
-      <a href="<?= APP_URL ?>/register.php?role=siswa" class="btn-tactile bg-zinc-900 text-white px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-zinc-800">
-        Daftar sebagai Siswa
+      <a href="<?= APP_URL ?>/upload_cv.php" class="btn-tactile bg-zinc-900 text-white px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-zinc-800">
+        Unggah CV Sekarang
       </a>
-      <a href="<?= APP_URL ?>/register.php?role=mitra" class="btn-tactile bg-white border border-zinc-300 text-zinc-800 px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-zinc-100">
-        Daftar sebagai Mitra Industri
+      <a href="<?= APP_URL ?>/company/talent.php" class="btn-tactile bg-white border border-zinc-300 text-zinc-800 px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-zinc-100">
+        Lihat Talent Pool
       </a>
     </div>
     <div class="mt-10 flex items-center gap-6 text-sm text-zinc-500">

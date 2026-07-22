@@ -51,7 +51,7 @@ require __DIR__ . '/includes/header.php';
     <button type="submit" class="btn-tactile w-full bg-zinc-900 text-white rounded-lg py-3 text-sm font-semibold hover:bg-zinc-800">Masuk</button>
   </form>
 
-  <p class="mt-6 text-sm text-zinc-500 text-center">Belum punya akun? <a href="<?= APP_URL ?>/register.php" class="link-accent font-medium">Daftar</a></p>
+  <p class="mt-6 text-sm text-zinc-500 text-center">Jika lupa akses, hubungi admin.</p>
 </section>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
